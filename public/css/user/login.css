@@ -1,0 +1,56 @@
+body{
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body.modal-open{
+    overflow-x: hidden;
+}
+
+.errorData{
+    color: red;
+}
+
+.loginMenu{
+    margin-top: 6%;
+}
+
+.toHide{
+    display:none;
+}
+
+.modalAmbel{
+    background-color: #ffc107;
+    color: white;
+}
+
+#imgLoginBody{
+    margin-left: 0;
+    margin-left: -1%;
+    background-size:cover;
+}
+
+#containerLogar{
+    margin-top: 13%;
+}
+
+p.errors{
+    color:red;
+}
+
+@media only screen and (max-width: 840px) {
+    #imgLoginBody{
+        display:block;
+        margin-left: 8%;
+        max-height: 10%;
+    }
+    .loginMenu{
+        position:absolute;
+        left: 20%;
+        top: 7%;
+    }
+    .loginMenu > .row > .col-3{
+        display:none;
+    }
+}
+

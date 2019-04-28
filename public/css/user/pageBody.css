@@ -1,0 +1,44 @@
+@import "main_conteudo.css";
+
+#pageBody{
+    color: black;
+}
+
+#pageBody .main{
+    margin-top:2%;
+    color:grey;
+}
+
+#pageBody .main .subTitle{
+    font-size: 22px;
+}
+
+#pageBody .main .subTitle i{
+    margin-left: 2%;
+}
+
+#pageBody .main a{
+    color:grey;
+}
+
+#pageBody .main a:hover{
+    color:#ffbb33;
+}
+
+#pageBody .main .menuOptions{
+    display: none;
+}
+
+#pageBody .card{
+    margin-top: 2%;
+    box-shadow: none !important;
+    color: #ffbb33;
+}
+
+#pageBody .left-less{
+    margin-left: -5%;
+}
+
+#pageBody .card .card-body, #pageBody .card .overlay{
+    text-align: center;
+}

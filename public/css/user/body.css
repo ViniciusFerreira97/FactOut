@@ -1,0 +1,41 @@
+body > div.row > div.col-10{
+    background-color:white;
+    z-index: 1;
+
+    -webkit-box-shadow: 0px 2px 12px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 12px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 12px -1px rgba(0,0,0,0.75);
+}
+
+html{
+    min-height: 100% !important;
+}
+
+body{
+    background-image:url('../../img/logos/background01.png');
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center bottom;
+    overflow-x:hidden;
+    min-height: 100% !important;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+body .errorData{
+    color: red;
+}
+
+body .main a.changeView.active{
+    color: #ffbb33 !important;
+}
+
+body .toHide{
+    display:none;
+}
+
+body #btnFixedFatos{
+    border-radius: 8px;
+}
