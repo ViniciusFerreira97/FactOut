@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\jf as JF;
+use App\Jf as JF;
 use App\Turma as Turma;
 use App\aluno as aluno;
 use DB;
@@ -47,6 +47,9 @@ class JFController extends Controller
         $turma = $this->getTurmaJf($request);
         if($status == 'Em preparação'){
             ExecJF::broadcast($turma);
+            $jf = JF::find($request->id_jf);
+            $jf->status_jf = 'Em execução';
+            $jf->save();
             $retorno['data'][] = 'JF iniciado com sucesso !';
             return $retorno;
         }

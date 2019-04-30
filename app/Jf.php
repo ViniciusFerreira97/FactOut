@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jf extends Model
 {
     protected $table = 'julgamento_fatos';
+    protected $primaryKey = 'id_jf';
 
     protected $fillable = [
         'id_jf',
