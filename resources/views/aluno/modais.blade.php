@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-2"></div>
                     <div class="col-5">
-                        <button type="button" class="btn btn-amber btn-sm">Sair da Equipe</button>
+                        <button type="button" id="btnSairEquipe" class="btn btn-amber btn-sm">Sair da Equipe</button>
                     </div>
                     <div class="col">
                         <button id="btnCriarEquipe" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalInserirAluno">Criar Equipe</button>

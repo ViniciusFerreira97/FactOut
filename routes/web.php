@@ -61,4 +61,4 @@ Route::get("/Jf/get_jf_exec_prep",'JFController@getJfPrepExec');
 Route::post('/JF/get_jf_Aluno','JFController@getJFAluno');
 
 Route::post("/equipe/alunos_da_equipe",'EquipeController@Alunos_Minha_Equipe');
-Route::post("/equipe/alunos_da_turma",'EquipeController@Get_Alunos_Da_Turma');
+Route::post("/equipe/alunos_sem_equipe",'EquipeController@Get_alunos_sem_equipe');

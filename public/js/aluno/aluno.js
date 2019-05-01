@@ -38,7 +38,7 @@ $(document).ready(function () {
     $('#ModalInserirAluno').on('shown.bs.modal',function(){
         var opcao = $('#slcJfDisponiveis option:selected').attr("value");
         $.ajax({
-            url: "/equipe/alunos_da_turma",
+            url: "/equipe/alunos_sem_equipe",
             type: "POST",
             data: {
                 codigo_JF: opcao,
@@ -60,10 +60,20 @@ $(document).ready(function () {
             url: "/equipe/alunos_da_equipe",
             type: "POST",
             data: {
+                id_jf: $('#slcJfDisponiveis').val(),
             },
             success: function (result) {
                 //$('body').html(result);return;
                 $('#slcEquipe').empty();
+
+                if(result['data'].length < 1){
+                    $('#btnSairEquipe').hide();
+                    $('#btnCriarEquipe').show();
+                    return;
+                }
+                $('#btnSairEquipe').show();
+                $('#btnCriarEquipe').hide();
+
                 $('#slcEquipe').append('<option value="0" disabled> Minha Equipe </option>');
                 for(var i = 0; i < result['data'].length; i++){
                     let option = '<option value="">'+result['data'][i]['nome']+'</option>';

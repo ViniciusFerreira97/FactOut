@@ -93,7 +93,7 @@ class JFController extends Controller
 
     public function getJfPrepExec(){
         $turma = aluno::where('id_usuario','=',Session::get('id_usuario'))->pluck('codigo_turma')->first();
-        $jfs = JF::where('status_jf','=','Em execução')->orWhere('status_jf','=','Em preparação')->where('codigo_turma','=',$turma)->get();
+        $jfs = JF::whereIn('status_jf',['Em execução','Em preparação'])->where('codigo_turma','=',$turma)->get();
         $cont = 0;
         $retorno=[];
         foreach ($jfs as $j){
