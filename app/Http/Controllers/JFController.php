@@ -29,6 +29,21 @@ class JFController extends Controller
         }
         return $retorno;
     }
+    public function getJFAluno(){
+        $jfs = DB::table('aluno as a')->where('a.id_usuario', '=', Session::get('id_usuario'))->join('turma as t','a.codigo_turma','=','t.codigo_turma')
+            ->join('julgamento_fatos as jf','t.codigo_turma','=','jf.codigo_turma')->select('jf.id_jf','t.disciplina','jf.status_jf','jf.nome')
+                ->whereIn('jf.status_jf',['Em preparação','Em execução', 'Finalizado'])->get();
+        $retorno = [];
+        $cont = 0;
+        foreach ($jfs as $j){
+            $retorno['data'][$cont]['codigo'] = $j->id_jf;
+            $retorno['data'][$cont]['status_jf'] = $j->status_jf;
+            $retorno['data'][$cont]['disciplina'] = $j->disciplina;
+            $retorno['data'][$cont]['nome'] = $j->nome;
+            $cont++;
+        }
+        return $retorno;
+    }
 
     public function getTurmaJf(Request $request){
         $id_jf = $request->id_jf;
@@ -59,7 +74,7 @@ class JFController extends Controller
             FimJF::broadcast($turma);
             $retorno['data'][] = 'JF finalizado com sucesso !';
         }
-        return $retorno;
+        return $retorno; 
     }
 
     public function getJfExecucaoAluno(){

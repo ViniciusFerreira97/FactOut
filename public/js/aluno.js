@@ -25,14 +25,14 @@ $(document).ready(function () {
     function listajfs()
     {
         $.ajax({
-            url: "/turma/turmas_cadastradas",
+            url: "/JF/get_jf_Aluno",
             type: "POST",
             data: {
             },
             success: function (result) {
                 $('#slcJfDisponiveis').empty();
                for(var i = 0; i < result['data'].length; i++){
-                   let option = '<option value="'+result['data'][i]['codigo']+'">'+result['data'][i]['codigo']+' - '+result['data'][i]['disciplina']+' - ' + result['data'][i]['curso']+' - '+result['data'][i]['unidade']+ '</option>';
+                   let option = '<option value="'+result['data'][i]['codigo']+'">'+result['data'][i]['nome']+' - '+result['data'][i]['disciplina']+' - ' + result['data'][i]['status_jf']+'</option>';
                    $('#slcJfDisponiveis').append(option);
                }
                 $('#slcJfDisponiveis').change();
@@ -41,7 +41,7 @@ $(document).ready(function () {
     }
 
     $('#ModalInserirAluno').on('shown.bs.modal',function(){
-        let opcao = $('#nomeJF > option').attr("value");
+        var opcao = $('#slcJfDisponiveis option:selected').attr("value");
         $.ajax({
             url: "/aluno/alunos_da_turma",
             type: "POST",

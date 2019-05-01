@@ -1,15 +1,15 @@
-$(document).ready(function(){
-    $('#cadastrarFato').on('click',function(){
+$(document).ready(function () {
+    $('#cadastrarFato').on('click', function () {
         $.ajax({
             url: "/professor/getJfs",
             type: "POST",
-            data:{
+            data: {
 
             },
             success: function (result) {
                 $('#slcJF').empty();
-                for(var i = 0; i < result['data'].length; i++){
-                    let option = '<option value="'+result['data'][i]['id_jf']+'">'+result['data'][i]['id_jf']+' - '+result['data'][i]['disciplina']+' - '+result['data'][i]['status_jf']+ '</option>';
+                for (var i = 0; i < result['data'].length; i++) {
+                    let option = '<option value="' + result['data'][i]['id_jf'] + '">' + result['data'][i]['id_jf'] + ' - ' + result['data'][i]['nome'] + ' - ' + result['data'][i]['disciplina'] + ' - ' + result['data'][i]['status_jf'] + '</option>';
                     $('#slcJF').append(option);
                 }
                 $('#slcJF').change();
@@ -18,16 +18,15 @@ $(document).ready(function(){
 
     });
 
-    $('#btnCadastrarFato').on('click',function(){
+    $('#btnCadastrarFato').on('click', function () {
         let id_jf = $('#slcJF').val();
         let orderm_fato = $('#ordemCadastrarFato').val();
         let texto_fato = $('#form7').val();
         let resposta_fato;
-        if($('#rbnVerdadeiro').checked){
+        if ($('#rbnVerdadeiro').prop('checked')) {
             resposta_fato = 1;
-        }else{
+        } else {
             resposta_fato = 0;
-
         }
         $.ajax({
             url: "/professor/cadastrar_fato",
@@ -51,9 +50,14 @@ $(document).ready(function(){
                     $('#modalError .modal-title').html('Erro ao Cadastrar');
                     $('#modalError').modal('show');
                 }
+                else {
+                    $('#modalSuccess .modal-title').html('Cadastro Fato');
+                    $('#modalSuccess .modal-body').html('Fato cadastrado com sucesso');
+                    $('#modalSuccess').modal('show');
+                    $('#cadastrarfatoView input').val("");
+                    $('#cadastrarfatoView input').blur();
+                }
 
-                //$('.cadastrar-turma-form .form-control').val("");
-                //$('.cadastrar-turma-form .form-control').blur();
             }
         })
     })

@@ -76,7 +76,6 @@ class ProfessorController extends Controller
             'resposta_fato' => 'required',
             'id_jf' => 'required',
         );
-
         $verificaOrdem = \App\Fato::where('orderm_fato','=',$request->orderm_fato)->where('id_jf','=',$request->id_jf);
         if($verificaOrdem->count() > 0){
             $return['success'] = false;

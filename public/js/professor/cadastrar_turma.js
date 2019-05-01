@@ -42,9 +42,13 @@ $(document).ready(function () {
                     $('#modalError .modal-title').html('Erro ao Cadastrar');
                     $('#modalError').modal('show');
                 }
-
-                $('.cadastrar-turma-form .form-control').val("");
-                $('.cadastrar-turma-form .form-control').blur();
+                else{
+                    $('#modalSuccess .modal-title').html('Cadastro Turma');
+                    $('#modalSuccess .modal-body').html('Turma cadastrada com sucesso');
+                    $('#modalSuccess').modal('show');
+                    $('.cadastrar-turma-form .form-control').val("");
+                    $('.cadastrar-turma-form .form-control').blur();
+                }
             }
         });
     })
