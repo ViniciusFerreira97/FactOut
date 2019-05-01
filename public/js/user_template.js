@@ -86,7 +86,13 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if(data['success']){
-                    location.reload();
+                    $('#modalFimJfAluno').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 3000);
                 }
             }
         });
