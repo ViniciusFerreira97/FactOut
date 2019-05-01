@@ -23,4 +23,19 @@ class EquipeController extends Controller
         }
         return $retorno;
     }
+
+    public function Excluir_Equipe(resquest $request){
+        $retorno['success'] = true;
+        $NumEquipe = DB::table('equipe')->where('id_usuario','=',Session::get('id_usuario'))->where('id_jf', '=', $request->id_jf)->count();
+        if($NumEquipe >0)
+        {
+            $equipe = DB::table('equipe')->where('id_usuario','=',Session::get('id_usuario'))->where('id_jf', '=', $request->id_jf)->pluck('id_equipe')->fist();
+            App\Equipe::destroy($equipe);
+        }
+        else{
+            $equipe = DB::table('equipe as eq')->where('eq.id_jf', '=', $request->id_jf)->join('aluno_equipe as aeq', 'eq.id_equipe', '=', 'aeq.id_equipe')->where('aeq.id_usuario','=',Session::get('id_usuario'))->pluck('aeq.id_aluno_equipe')->fist();
+            App\Aluno_Equipe::destroy($equipe);
+        }
+        return $retorno;
+    }
 }
