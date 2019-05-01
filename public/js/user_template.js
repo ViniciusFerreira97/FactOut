@@ -75,4 +75,20 @@ $(document).ready(function () {
             }
         });
     });
+
+    var finalizarJF = pusher.subscribe('finalizarJF');
+    finalizarJF.bind('App\\Events\\FinalizarJF', function(data) {
+        $.ajax({
+            url: "/turma/usuario_em_turma",
+            type: "POST",
+            data: {
+                id_turma: data['turma'],
+            },
+            success: function (data) {
+                if(data['success']){
+                    location.reload();
+                }
+            }
+        });
+    });
 });

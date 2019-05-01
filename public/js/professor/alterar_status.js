@@ -74,7 +74,7 @@ $(document).ready(function () {
                     $('#modalSuccess .modal-body').html(result['data'][0]);
                     $('#modalSuccess .modal-title').html('Alteração Status JF.');
                     $('#modalSuccess').modal('show');
-                    $('#slcJFStatus').change();
+                    $('#alterarJf').click();
                 }
             }
         });

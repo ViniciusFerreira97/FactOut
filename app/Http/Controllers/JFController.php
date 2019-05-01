@@ -9,6 +9,7 @@ use App\aluno as aluno;
 use DB;
 use Session;
 use App\Events\ExecutarJF as ExecJF;
+use App\Events\FinalizarJF as FimJF;
 
 class JFController extends Controller
 {
@@ -46,13 +47,19 @@ class JFController extends Controller
         $status = $this->getStatusJF($request);
         $turma = $this->getTurmaJf($request);
         if($status == 'Em preparação'){
-            ExecJF::broadcast($turma);
             $jf = JF::find($request->id_jf);
             $jf->status_jf = 'Em execução';
             $jf->save();
+            ExecJF::broadcast($turma);
             $retorno['data'][] = 'JF iniciado com sucesso !';
-            return $retorno;
+        }else{
+            $jf = JF::find($request->id_jf);
+            $jf->status_jf = 'Finalizado';
+            $jf->save();
+            FimJF::broadcast($turma);
+            $retorno['data'][] = 'JF finalizado com sucesso !';
         }
+        return $retorno;
     }
 
     public function getJfExecucaoAluno(){
