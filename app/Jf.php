@@ -11,6 +11,7 @@ class Jf extends Model
 
     protected $fillable = [
         'id_jf',
+        'nome',
         'codigo_turma',
         'tamanho_equipe',
         'tempo_fato',

@@ -45,6 +45,7 @@ class ProfessorController extends Controller
 
     public function Cadastrar_JF(Request $request){
         $rules = array(
+            'nome_JF' => 'required',
             'codigo_turma' => 'required',
             'tamanho_equipe' => 'required',
             'tempo_fato' => 'required',
@@ -56,12 +57,13 @@ class ProfessorController extends Controller
             $return['data'] = $validator->errors()->all();
             return $return;
         }
-
+        $return['success'] = true;
         $jf = new jf;
+        $jf->nome = $request->nome_JF;
         $jf->codigo_turma = $request->codigo_turma;
         $jf->tamanho_equipe = $request->tamanho_equipe;
         $jf->tempo_fato = $request->tempo_fato*100;
-        $jf->status_jf = 'Em criação';
+        $jf->status_jf = 'Em preparação';
         $jf -> save();
 
     }
@@ -105,8 +107,6 @@ class ProfessorController extends Controller
         $return['success'] = true;
         $return['data'][] = 'Fato cadastrado com sucesso';
         return $return;
-
-
     }
 
 
