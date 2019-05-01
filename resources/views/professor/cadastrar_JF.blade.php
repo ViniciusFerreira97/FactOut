@@ -9,9 +9,19 @@
         <div class="col-4"></div>
         <div class="col-4">
             <div class="md-form">
-                <select class="form-control" id="slcTurmaJF">
+                <select id="slcTurmaJF" class="form-control">
                     <option>Selecione a turma</option>
                 </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="md-form">
+                <i class="fas fa-clipboard prefix"></i>
+                <input type="text" class="form-control" id="nomeJF">
+                <label for="equipesCadastrarJF">Nome JF</label>
             </div>
         </div>
     </div>

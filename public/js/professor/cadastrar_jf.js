@@ -2,7 +2,7 @@ $(document).ready(function (){
 
     $('#cadastrarJf').on('click',function(){
         $.ajax({
-            url: "/professor/turmas_cadastradas",
+            url: "/turma/turmas_cadastradas",
             type: "POST",
             data: {
 
@@ -16,10 +16,10 @@ $(document).ready(function (){
                 $('#slcTurmaJF').change();
             }
         });
-
-    });
+    })
 
     $('#btnCadastrarJF').on('click',function(){
+        let nome_JF = $('#nomeJF').val();
         let codigo_turma = $('#slcTurmaJF').val();
         let tamanho_equipe = $('#equipesCadastrarJF').val();
         let tempo_fato = $('#tempoCadastrarJF').val();
@@ -28,12 +28,13 @@ $(document).ready(function (){
             url: "/professor/cadastrar_jf",
             type: "POST",
             data: {
+                nome_JF: nome_JF,
                 codigo_turma: codigo_turma,
                 tamanho_equipe: tamanho_equipe,
                 tempo_fato: tempo_fato,
             },
             success: function (result) {
-                if (!result['success']) {
+                if (result['success']) {
                     $('#modalError .modal-body').empty();
                     let tohtml = '';
 
@@ -45,9 +46,13 @@ $(document).ready(function (){
                     $('#modalError .modal-title').html('Erro ao Cadastrar');
                     $('#modalError').modal('show');
                 }
-
-                //$('.cadastrar-turma-form .form-control').val("");
-                //$('.cadastrar-turma-form .form-control').blur();
+                else{
+                    $('#modalSuccess .modal-title').html('Cadastro JF');
+                    $('#modalSuccess .modal-body').html('Cadastro realizado com sucesso');
+                    $('#modalSuccess').modal('show');
+                }
+                $('#cadastrarjfView input').val("");
+                $('#cadastrarjfView input').blur();
             }
         })
     })

@@ -34,7 +34,7 @@
                                 <div class="view overlay">
                                     <i class="fas fa-clipboard-list fa-2x"></i>
                                 </div>
-                                <div class="card-body">
+                                <div id="btnCadJf" class="card-body">
                                     Cadastrar JF
                                 </div>
                             </a>
