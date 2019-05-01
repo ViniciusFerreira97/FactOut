@@ -48,7 +48,6 @@ Route::post('/professor/cadastrar_fato','ProfessorController@Cadastrar_Fato');
 Route::post('/professor/cadastrar_jf','ProfessorController@Cadastrar_JF');
 
 Route::post("/aluno/alunos_sem_turma",'AlunoController@Get_Alunos_Sem_Turma');
-Route::post("/aluno/alunos_da_turma",'AlunoController@Get_Alunos_Da_Turma');
 
 Route::post("/turma/alunos_da_turma",'TurmaController@Alunos_da_Turma');
 Route::post("/turma/salvar_alunos",'TurmaController@salvar_alunos');
@@ -62,3 +61,4 @@ Route::get("/Jf/get_jf_exec_prep",'JFController@getJfPrepExec');
 Route::post('/JF/get_jf_Aluno','JFController@getJFAluno');
 
 Route::post("/equipe/alunos_da_equipe",'EquipeController@Alunos_Minha_Equipe');
+Route::post("/equipe/alunos_da_turma",'EquipeController@Get_Alunos_Da_Turma');

@@ -57,9 +57,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-2"></div>
-                    <div class="col-4">
+                    <div class="col-5">
                         <div class="md-form">
-                            <span>Turma: </span>
+                            <span>Julgamento de Fatos: </span>
                             <br>
                             <span id="nomeJF"></span>
                         </div>

@@ -14,8 +14,10 @@
     <div class="row top-more-2">
         <div class="col-3"></div>
         <div class="col-5">
-            <select class="custom-select" multiple id="slcJfDisponiveis">
-            </select>
+            <div class="md-form">
+                <select class="form-control" id="slcJfDisponiveis">
+                </select>
+            </div>
         </div>
     </div>
     <div class="row buttonControl">
@@ -26,4 +28,5 @@
         </div>
     </div>
 </section>
-<script type="text/javascript" src="/js/aluno.js"></script>
+<script type="text/javascript" src="/js/aluno/aluno.js"></script>
+<script type="text/javascript" src="/js/aluno/visualizar_jf.js"></script>
