@@ -19,7 +19,7 @@
         </div>
     </div>
 </div>
-<!-- Side Modal Top Right -->
+<!-- /Modal Error -->
 
 <!-- Modal Success -->
 <div class="modal fade right mSuccess" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -42,4 +42,23 @@
         </div>
     </div>
 </div>
-<!-- Side Modal Top Right -->
+<!-- Modal Success -->
+
+<!-- Modal Warning Blocking -->
+<div class="modal fade right mAmber" id="modalFimJfAluno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-side modal-bottom-right" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Finalização de JF</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Um JF foi finalizado. <br> Aguarde...
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Warning -->
