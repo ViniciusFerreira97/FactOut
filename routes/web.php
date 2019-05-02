@@ -58,8 +58,9 @@ Route::post('/turma/turmas_cadastradas','TurmaController@Turmas_cadastradas');
 
 
 Route::get("/Jf/get_jf_exec_aluno",'JFController@getJfExecucaoAluno');
-Route::get("/Jf/get_jf_exec_prep",'JFController@getJfPrepExec');
+Route::get("/Jf/get_jf_prep_aluno",'JFController@getJfPreparacaoAluno');
 Route::post('/JF/get_jf_Aluno','JFController@getJFAluno');
+Route::post('/JF/get_fato_atual','JFController@getFatoAtual');
 
 Route::post("/equipe/alunos_da_equipe",'EquipeController@Alunos_Minha_Equipe');
 Route::post("/equipe/alunos_sem_equipe",'EquipeController@Get_alunos_sem_equipe');

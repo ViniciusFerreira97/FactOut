@@ -30,3 +30,4 @@
 </section>
 <script type="text/javascript" src="/js/aluno/aluno.js"></script>
 <script type="text/javascript" src="/js/aluno/visualizar_jf.js"></script>
+<script type="text/javascript" src="/js/aluno/visualizar_fato.js"></script>
