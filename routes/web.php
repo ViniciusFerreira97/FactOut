@@ -63,4 +63,5 @@ Route::post('/JF/get_jf_Aluno','JFController@getJFAluno');
 
 Route::post("/equipe/alunos_da_equipe",'EquipeController@Alunos_Minha_Equipe');
 Route::post("/equipe/alunos_sem_equipe",'EquipeController@Get_alunos_sem_equipe');
+Route::post("/equipe/criar_equipe",'EquipeController@salvar_alunos');
 Route::delete("/equipe/sair_equipe",'EquipeController@Excluir_Equipe');

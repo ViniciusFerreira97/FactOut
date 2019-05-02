@@ -58,10 +58,11 @@ class EquipeController extends Controller
         $retorno['success'] = true;
         $codTurm = Jf::where('id_jf','=', $request->codigo_JF)->pluck('codigo_turma')->first();
         $alunoEmEquipe = DB::table('aluno_equipe as aeq')->join('equipe as eq','eq.id_equipe','=','aeq.id_equipe')->where('eq.codigo_turma','=',$codTurm)->pluck('aeq.id_usuario');
-        $semEquipeDaTurma = DB::table('aluno as a')->join('usuario as u','a.id_usuario','=','u.id_usuario')->where('a.codigo_turma','=',$codTurm)->whereNotIn('a.id_usuario',$alunoEmEquipe)->select('u.nome')->get();
+        $semEquipeDaTurma = DB::table('aluno as a')->join('usuario as u','a.id_usuario','=','u.id_usuario')->where('a.codigo_turma','=',$codTurm)->whereNotIn('a.id_usuario',$alunoEmEquipe)->where('a.id_usuario', '!=', Session::get('id_usuario'))->select('u.nome', 'u.id_usuario')->get();
         $cont = 0;
         $retorno['data'] = [];
         foreach ($semEquipeDaTurma as $aluno) {
+            $retorno['data'][$cont]['id_usuario'] = $aluno->id_usuario;
             $retorno['data'][$cont]['nome'] = $aluno->nome;
             $cont++;
         }
@@ -79,6 +80,7 @@ class EquipeController extends Controller
             $return['data'] = $validator->errors()->all();
             return $return;
         }
+
         $turma = DB::table('julgamento_fatos')->where('id_jf','=', $id_jf)->pluck('codigo_turma')->first();
         $return['success'] = true;
         $equipe = new Equipe;
@@ -86,19 +88,34 @@ class EquipeController extends Controller
         $equipe->lider = Session::get('id_usuario');
         $equipe->id_jf = $id_jf;
         $equipe -> save();
+        $aluno_equipe = new Aluno_Equipe;
+        $id_equipe = DB::table('equipe')->where('lider','=', Session::get('id_usuario'))->pluck('id_equipe')->first();
+        $aluno_equipe->id_usuario = Session::get('id_usuario');
+        $aluno_equipe->id_equipe = $id_equipe;
+        $aluno_equipe -> save();
 
         return($return);
     }
     public function salvar_alunos(Request $request){
-
-        criar_equipe($request->id_jf);
+        $retorno = [];
+        $tamEquipe = Jf::where('id_jf', '=', $request->id_jf)->pluck('tamanho_equipe')->first();
+        if(isset($request->alunos) && count($request->alunos) > $tamEquipe-1)
+        {
+            $retorno['success'] = false;
+            $retorno['data'] = 'O número máximo de alunos por equipe neste JF é '.$tamEquipe;
+            return($retorno);
+        }
+        $aux = $this->criar_equipe($request->id_jf);
         $id_equipe = DB::table('equipe')->where('lider','=', Session::get('id_usuario'))->pluck('id_equipe')->first();
         $retorno['success'] = true;
-        foreach ($request->alunos as $aluno){
-            $aluno_equipe = new Aluno_Equipe;
-            $aluno_equipe->id_usuario = $aluno->id_usuario;
-            $aluno_equipe->id_equipe = $id_equipe;
-            $aluno_equipe -> save();
+        if(isset($request->alunos))
+        {
+            foreach ($request->alunos as $aluno){
+                $aluno_equipe = new Aluno_Equipe;
+                $aluno_equipe->id_usuario = $aluno;
+                $aluno_equipe->id_equipe = $id_equipe;
+                $aluno_equipe -> save();
+            }
         }
         return $retorno;
     }
