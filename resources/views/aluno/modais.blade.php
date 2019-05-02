@@ -125,14 +125,14 @@
                     <div class="col-2"></div>
                     <div class="col-8">
                         <select id="slcInserir" class="custom-select" multiple>
-                            <option disabled>Alunos Na Equipe</option>
+                            <option value="0" disabled>Alunos Na Equipe</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-2"></div>
                     <div class="col-5">
-                        <button type="button" class="btn btn-amber btn-sm" id="btnSalvarTurma">Salvar Alterações</button>
+                        <button type="button" class="btn btn-amber btn-sm" id="btnSalvarEquipe">Salvar Alterações</button>
                     </div>
                     <div class="col">
                         <button type="button" class="btn btn-danger btn-sm" id="btnRemoverTodosTurma">Remover Todos</button>
@@ -172,7 +172,7 @@
                     <div class="col-2"></div>
                     <div class="col-5">
                         <button type="button" class="btn btn-amber btn-sm">Visualizar Fato</button>
-                        <button type="button" class="btn btn-deep-orange btn-sm" data-toggle="modal" data-target="#ModalVerEquipe">Ver Equipe</button>
+                        <button type="button" class="btn btn-deep-orange btn-sm" data-toggle="modal" data-target="#ModalVerEquipe" id="modalBtnVerEquipe">Ver Equipe</button>
                     </div>
                 </div>
             </div>

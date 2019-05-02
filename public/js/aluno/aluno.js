@@ -7,6 +7,10 @@ $(document).ready(function () {
         $('#modalJFExecucao').modal('show');
     })
 
+    $("#modalBtnVerEquipe").on("click", function () {
+        $("#modalJFExecucao").modal("hide");
+    });
+
     $.ajax({
         url: "/turma/jf_exec_turma",
         type: "GET",
@@ -35,8 +39,11 @@ $(document).ready(function () {
         });
     }*/
 
-    $('#ModalInserirAluno').on('shown.bs.modal',function(){
+    $('#ModalInserirAluno').on('shown.bs.modal', function () {
+
         var opcao = $('#slcJfDisponiveis option:selected').attr("value");
+        $('#slcInserir').empty();
+        $('#slcAluno').empty();
         $.ajax({
             url: "/equipe/alunos_sem_equipe",
             type: "POST",
@@ -44,18 +51,17 @@ $(document).ready(function () {
                 codigo_JF: opcao,
             },
             success: function (result) {
-                //$('body').html(result);return;
-                $('#slcAluno').empty();
+                //$('body').html(result);return; 
                 $('#slcAluno').append('<option value="0" disabled> Alunos Sem Equipe </option>');
-                for(var i = 0; i < result['data'].length; i++){
-                    let option = '<option value="'+result['data'][i]['nome']+'">'+result['data'][i]['nome']+'</option>';
+                for (var i = 0; i < result['data'].length; i++) {
+                    let option = '<option value="' + result['data'][i]['id_usuario'] + '">' + result['data'][i]['nome'] + '</option>';
                     $('#slcAluno').append(option);
                 }
             }
         });
     });
 
-    $('#ModalVerEquipe').on('shown.bs.modal',function(){
+    $('#ModalVerEquipe').on('shown.bs.modal', function () {
         $.ajax({
             url: "/equipe/alunos_da_equipe",
             type: "POST",
@@ -66,7 +72,7 @@ $(document).ready(function () {
                 //$('body').html(result);return;
                 $('#slcEquipe').empty();
 
-                if(result['data'].length < 1){
+                if (result['data'].length < 1) {
                     $('#btnSairEquipe').hide();
                     $('#btnCriarEquipe').show();
                     return;
@@ -75,23 +81,23 @@ $(document).ready(function () {
                 $('#btnCriarEquipe').hide();
 
                 $('#slcEquipe').append('<option value="0" disabled> Minha Equipe </option>');
-                for(var i = 0; i < result['data'].length; i++){
-                    let option = '<option value="">'+result['data'][i]['nome']+'</option>';
+                for (var i = 0; i < result['data'].length; i++) {
+                    let option = '<option value="">' + result['data'][i]['nome'] + '</option>';
                     $('#slcEquipe').append(option);
                 }
             }
         });
     });
 
-    $('#slcAluno').on('click',function () {
+    $('#slcAluno').on('click', function () {
         var selectedOpts = $('#slcAluno option:selected');
-        if(selectedOpts.length != 0 && selectedOpts.value != 0)
-        $('#slcInserir').append(selectedOpts);
+        if (selectedOpts.length != 0 && selectedOpts.value != 0)
+            $('#slcInserir').append(selectedOpts);
     });
 
-    $('#slcInserir').on('click',function () {
+    $('#slcInserir').on('click', function () {
         var selectedOpts = $('#slcInserir option:selected');
-        if(selectedOpts.length != 0 && selectedOpts.value != 0)
+        if (selectedOpts.length != 0 && selectedOpts.value != 0)
             $('#slcAluno').append(selectedOpts);
     });
 
@@ -122,40 +128,42 @@ $(document).ready(function () {
                 id_jf: $('#slcJfDisponiveis').val(),
             },
             success: function (result) {
-                alert(result);
+                $("#ModalVerEquipe").modal("hide");
             }
         });
     });
 
-    $('#btnSalvarTurma').on('click',function(){
+    $('#btnSalvarEquipe').on('click', function () {
         let alunos = [];
-        $('#slcInserir option').each(function(){
-            alunos.push($(this).val());
+        $('#slcInserir option').each(function () {
+            if ($(this).val() != 0)
+                alunos.push($(this).val());
         });
-        let turma = $('#slcTurma').val();
-         $.ajax({
-             url: "/turma/salvar_alunos",
-             type: "POST",
-             data: {
-                 alunos: alunos,
-             },
-             success: function (result) {
-                 if (!result['success']) {
-                     $('#modalError .modal-body').empty();
-                     let tohtml = '';
- 
-                     for (var i in result['data']) {
-                         tohtml += result['data'][i] + '<br>';
-                     }
- 
-                     $('#modalError .modal-body').html(tohtml);
-                     $('#modalError .modal-title').html('Erro ao Cadastrar');
-                     $('#modalError').modal('show');
-                 }
- 
-             }
-         });
-     });
+        $.ajax({
+            url: "/equipe/criar_equipe",
+            type: "POST",
+            data: {
+                alunos: alunos,
+                id_jf: $('#slcJfDisponiveis').val(),
+            },
+            success: function (result) {
+                if (!result['success']) {
+                    $('#modalError .modal-body').empty();
+
+                    $('#modalError .modal-body').html(result['data']);
+                    $('#modalError .modal-title').html('Erro ao Criar Equipe');
+                    $('#modalError').modal('show');
+                }
+                else {
+                    $('#modalSuccess .modal-title').html('Criar Equipe');
+                    $('#modalSuccess .modal-body').html('Equipe criada com sucesso');
+                    $('#modalSuccess').modal('show');
+                    $("#ModalInserirAluno").modal("hide");
+                }
+
+            }
+        });
+    });
 
     function dump(obj) {
         var out = '';
