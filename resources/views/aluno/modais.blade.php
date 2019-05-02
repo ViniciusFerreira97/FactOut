@@ -180,7 +180,7 @@
                     <div class="col-2"></div>
                     <div class="col-5">
                         <button type="button" class="btn btn-amber btn-sm" id="btnVisualizarFatoModal">Visualizar Fato</button>
-                        <button type="button" class="btn btn-deep-orange btn-sm" data-toggle="modal" data-target="#ModalVerEquipe" id="modalBtnVerEquipe">Ver Equipe</button>
+                        <!--<button type="button" class="btn btn-deep-orange btn-sm" data-toggle="modal" data-target="#ModalVerEquipe" id="modalBtnVerEquipe">Ver Equipe</button>-->
                     </div>
                 </div>
             </div>
