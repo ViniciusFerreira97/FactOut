@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Jf as JF;
 use App\Turma as Turma;
 use App\aluno as aluno;
+use App\Fato as Fato;
 use DB;
 use Session;
 use App\Events\ExecutarJF as ExecJF;
@@ -24,6 +25,22 @@ class JFController extends Controller
             $retorno['data'][$cont]['id_jf'] = $j->id_jf;
             $retorno['data'][$cont]['status_jf'] = $j->status_jf;
             $retorno['data'][$cont]['disciplina'] = $j->disciplina;
+            $retorno['data'][$cont]['nome'] = $j->nome;
+            $cont++;
+        }
+        return $retorno;
+    }
+    public function getJfPreparacaoAluno(){
+        $jfs = DB::table('julgamento_fatos as jf')->join('turma as t','jf.codigo_turma','=','t.codigo_turma')
+            ->join('aluno as u','t.codigo_turma','=','u.codigo_turma')->select('jf.id_jf','t.disciplina','jf.status_jf','jf.nome','t.disciplina')
+            ->whereIn('jf.status_jf',['Em preparação'])
+            ->where('u.id_usuario','=',Session::get('id_usuario'))->get();
+        $retorno = [];
+        $cont = 0;
+        foreach ($jfs as $j){
+            $retorno['data'][$cont]['id'] = $j->id_jf;
+            $retorno['data'][$cont]['status'] = $j->status_jf;
+            $retorno['data'][$cont]['turma'] = $j->disciplina;
             $retorno['data'][$cont]['nome'] = $j->nome;
             $cont++;
         }
@@ -125,6 +142,17 @@ class JFController extends Controller
             $retorno[$cont]['id'] = $j->id_jf;
             $cont++;
         }
+        return $retorno;
+    }
+
+    public function getFatoAtual(Request $request){
+        $atual = JF::where('id_jf','=',$request->id_jf)->pluck('fato_atual')->first();
+        $nome = JF::where('id_jf','=',$request->id_jf)->pluck('nome')->first();
+        $fato  = Fato::where('id_jf','=',$request->id_jf)->where('ordem_fato','=',$atual)->select('texto_fato','id_fato')->first();
+        $retorno['texto'] = $fato->texto_fato;
+        $retorno['id'] = $fato->id_fato;
+        $retorno['ordem'] = $atual;
+        $retorno['nome'] = $nome;
         return $retorno;
     }
 }

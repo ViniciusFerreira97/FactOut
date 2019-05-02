@@ -7,17 +7,17 @@ $(document).ready(function () {
 
     $('#listaDeJfs').on('click', function () {
         $.ajax({
-            url: "/Jf/get_jf_exec_prep",
+            url: "/Jf/get_jf_prep_aluno",
             type: "GET",
             success: function (data) {
                 //$('body').html(data);return;
                 $('#slcJfDisponiveis').empty();
                 $('#slcJfDisponiveis').append('<option disabled> Selecione o JF </option>');
-                for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < data['data'].length; i++) {
                     let append = '';
-                    append += '<option value="' + data[i]['id'] + '">';
-                    append += data[i]['turma'] + ' ' + data[i]['nome'];
-                    append += ' ('+data[i]['status']+')';
+                    append += '<option value="' + data['data'][i]['id'] + '">';
+                    append += data['data'][i]['turma'] + ' ' + data['data'][i]['nome'];
+                    append += ' ('+data['data'][i]['status']+')';
                     append += '</option>';
                     $('#slcJfDisponiveis').append(append);
                 }

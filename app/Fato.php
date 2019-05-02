@@ -11,7 +11,7 @@ class Fato extends Model
 
     protected $fillable = [
         'id_fato',
-        'orderm_fato',
+        'ordem_fato',
         'texto_fato',
         'resposta_fato',
         'id_jf',

@@ -99,7 +99,7 @@ class ProfessorController extends Controller
         }
 
         $fato = new Fato;
-        $fato->orderm_fato = $request->orderm_fato;
+        $fato->ordem_fato = $request->orderm_fato;
         $fato->texto_fato = $request->texto_fato;
         $fato->resposta_fato = $request->resposta_fato;
         $fato->id_jf = $request->id_jf;
