@@ -83,6 +83,18 @@ $(document).ready(function () {
         });
     });
 
+    $('#slcAluno').on('click',function () {
+        var selectedOpts = $('#slcAluno option:selected');
+        if(selectedOpts.length != 0 && selectedOpts.value != 0)
+        $('#slcInserir').append(selectedOpts);
+    });
+
+    $('#slcInserir').on('click',function () {
+        var selectedOpts = $('#slcInserir option:selected');
+        if(selectedOpts.length != 0 && selectedOpts.value != 0)
+            $('#slcAluno').append(selectedOpts);
+    });
+
     $('#btnFixedFatos').on('click', function () {
         $.ajax({
             url: "/Jf/get_jf_exec_aluno",
@@ -101,6 +113,49 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#btnSairEquipe').on('click', function () {
+        $.ajax({
+            url: "/equipe/sair_equipe",
+            type: "DELETE",
+            data: {
+                id_jf: $('#slcJfDisponiveis').val(),
+            },
+            success: function (result) {
+                alert(result);
+            }
+        });
+    });
+
+    $('#btnSalvarTurma').on('click',function(){
+        let alunos = [];
+        $('#slcInserir option').each(function(){
+            alunos.push($(this).val());
+        });
+        let turma = $('#slcTurma').val();
+         $.ajax({
+             url: "/turma/salvar_alunos",
+             type: "POST",
+             data: {
+                 alunos: alunos,
+             },
+             success: function (result) {
+                 if (!result['success']) {
+                     $('#modalError .modal-body').empty();
+                     let tohtml = '';
+ 
+                     for (var i in result['data']) {
+                         tohtml += result['data'][i] + '<br>';
+                     }
+ 
+                     $('#modalError .modal-body').html(tohtml);
+                     $('#modalError .modal-title').html('Erro ao Cadastrar');
+                     $('#modalError').modal('show');
+                 }
+ 
+             }
+         });
+     });
 
     function dump(obj) {
         var out = '';

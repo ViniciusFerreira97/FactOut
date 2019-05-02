@@ -11,7 +11,7 @@ class Equipe extends Model
 
     protected $fillable = [
         'id_equipe',
-        'codico_turma',
+        'codigo_turma',
         'lider',
         'id_jf',
     ];
