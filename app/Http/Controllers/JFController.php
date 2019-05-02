@@ -153,6 +153,10 @@ class JFController extends Controller
         $retorno['id'] = $fato->id_fato;
         $retorno['ordem'] = $atual;
         $retorno['nome'] = $nome;
+        $retorno['lider'] = false;
+        $lider = DB::table('julgamento_fatos as jf')->join('equipe as e','e.id_jf','=','jf.id_jf')->where('e.lider','=',Session::get('id_usuario'))->count();
+        if($lider > 0)
+            $retorno['lider'] = true;
         return $retorno;
     }
 }

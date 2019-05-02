@@ -23,7 +23,7 @@
     <div class="row buttonControl">
         <div class="col-5"></div>
         <div class="col">
-            <button type="button" class="btn btn-amber btn-sm" data-toggle="modal" data-target="#ModalResponderFato">Visualizar JF</button>
+            <button type="button" id="btnVisualizarFato" class="btn btn-amber btn-sm" data-toggle="modal" data-target="#ModalResponderFato">Visualizar JF</button>
             <button type="button" id="btnVerEquipe" class="btn btn-deep-orange btn-sm" data-toggle="modal" data-target="#ModalVerEquipe">Ver Equipe</button>
         </div>
     </div>

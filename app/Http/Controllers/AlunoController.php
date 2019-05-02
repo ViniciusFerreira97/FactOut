@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\aluno;
 use DB;
 use App\Jf as Jf;
+use App\Fato as Fato;
+use App\Resposta as Resposta;
+use Session;
 
 class AlunoController extends Controller
 {
@@ -51,6 +54,24 @@ class AlunoController extends Controller
             $retorno[$contador]['login'] = $alunosSemTurma[0]->login;
             $contador++;
         }
+        return $retorno;
+    }
+
+    public function responder_fato(Request $request){
+        $retorno['success'] = true;
+        $qtdResposta = Resposta::where('id_fato','=',$request->id_fato)->where('id_lider','=',Session::get('id_usuario'))->count();
+        if($qtdResposta == 0){
+            $resposta = new Resposta();
+            $resposta->id_lider = Session::get('id_usuario');
+            $resposta->id_fato = $request->id_fato;
+            $resposta->resposta = $request->resposta;
+            $resposta->save();
+            return $retorno;
+        }
+        $id = Resposta::where('id_fato','=',$request->id_fato)->where('id_lider','=',Session::get('id_usuario'))->pluck('id_resposta')->first();
+        $resposta = Resposta::find($id);
+        $resposta->resposta = $request->resposta;
+        $resposta->save();
         return $retorno;
     }
 }

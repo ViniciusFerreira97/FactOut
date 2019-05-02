@@ -35,11 +35,11 @@
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-1">
-                        <button type="button" class="btn btn-success btn-sm toHide" data-toggle="tooltip" data-placement="bottom" title="Verdadeiro"> <i class="fas fa-check"></i> </button>
+                        <button type="button" id="btnVerdadeiro" class="btn btn-success btn-sm toHide" data-toggle="tooltip" data-placement="bottom" title="Verdadeiro"> <i class="fas fa-check"></i> </button>
                     </div>
                     <div class="col-2"></div>
                     <div class="col-1">
-                        <button type="button" class="btn btn-danger btn-sm toHide" data-toggle="tooltip" data-placement="bottom" title="Falso"><i class="fas fa-times"></i></button>
+                        <button type="button" id="btnFalso" class="btn btn-danger btn-sm toHide" data-toggle="tooltip" data-placement="bottom" title="Falso"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
             </div>
