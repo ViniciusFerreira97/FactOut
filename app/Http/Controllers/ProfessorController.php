@@ -34,12 +34,14 @@ class ProfessorController extends Controller
             $return['data'][] = 'Turma já cadastrada.';
             return $return;
         }
+        $return['success'] = true;
         $turma = new Turma;
         $turma->disciplina = $request->disciplina;
         $turma->curso = $request->curso;
         $turma->unidade_universidade = $request->unidade;
         $turma->id_professor = $id_professor;
         $turma->save();
+        return $return;
     }
 
 
@@ -65,7 +67,7 @@ class ProfessorController extends Controller
         $jf->tempo_fato = $request->tempo_fato*100;
         $jf->status_jf = 'Em preparação';
         $jf -> save();
-
+        return $return;
     }
 
 

@@ -46,7 +46,7 @@ $(document).ready(function (){
                 tempo_fato: tempo_fato,
             },
             success: function (result) {
-                if (result['success']) {
+                if (!result['success']) {
                     $('#modalError .modal-body').empty();
                     let tohtml = '';
 
@@ -62,9 +62,9 @@ $(document).ready(function (){
                     $('#modalSuccess .modal-title').html('Cadastro JF');
                     $('#modalSuccess .modal-body').html('Cadastro realizado com sucesso');
                     $('#modalSuccess').modal('show');
+                    $('#cadastrarjfView input').val("");
+                    $('#cadastrarjfView input').blur();
                 }
-                $('#cadastrarjfView input').val("");
-                $('#cadastrarjfView input').blur();
             }
         })
     })
