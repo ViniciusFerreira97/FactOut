@@ -44,6 +44,7 @@ Route::get('/professor/getJfs','JFController@getJFProfessor');
 Route::post('/professor/setStatusJF','JFController@setStatus');
 
 Route::post('/professor/getJfs','JFController@getJFProfessor');
+Route::post('/professor/getJfsPreparacao','JFController@getJFPreparacaoProfessor');
 Route::post('/professor/cadastrar_fato','ProfessorController@Cadastrar_Fato');
 Route::post('/professor/cadastrar_jf','ProfessorController@Cadastrar_JF');
 

@@ -29,6 +29,22 @@ class JFController extends Controller
         }
         return $retorno;
     }
+    public function getJFPreparacaoProfessor(){
+        $jfs = DB::table('julgamento_fatos as jf')->join('turma as t','jf.codigo_turma','=','t.codigo_turma')
+            ->join('usuario as u','t.id_professor','=','u.id_usuario')->select('jf.id_jf','t.disciplina','jf.status_jf','jf.nome')
+            ->whereIn('jf.status_jf',['Em preparação'])
+            ->where('u.id_usuario','=',Session::get('id_usuario'))->get();
+        $retorno = [];
+        $cont = 0;
+        foreach ($jfs as $j){
+            $retorno['data'][$cont]['id_jf'] = $j->id_jf;
+            $retorno['data'][$cont]['status_jf'] = $j->status_jf;
+            $retorno['data'][$cont]['disciplina'] = $j->disciplina;
+            $retorno['data'][$cont]['nome'] = $j->nome;
+            $cont++;
+        }
+        return $retorno;
+    }
     public function getJFAluno(){
         $jfs = DB::table('aluno as a')->where('a.id_usuario', '=', Session::get('id_usuario'))->join('turma as t','a.codigo_turma','=','t.codigo_turma')
             ->join('julgamento_fatos as jf','t.codigo_turma','=','jf.codigo_turma')->select('jf.id_jf','t.disciplina','jf.status_jf','jf.nome')
@@ -58,10 +74,16 @@ class JFController extends Controller
     }
 
     public function setStatus(Request $request){
-        $retorno['sucess'] = true;
+        $retorno['success'] = true;
         $status = $this->getStatusJF($request);
         $turma = $this->getTurmaJf($request);
         if($status == 'Em preparação'){
+            $qtdFatos = DB::table('julgamento_fatos as jf')->join('fato as f','jf.id_jf','=','f.id_jf')->where('jf.id_jf','=',$request->id_jf)->count();
+            if($qtdFatos < 1){
+                $retorno['success'] = false;
+                $retorno['data'][] = 'Julgamento sem fatos não pode ser iniciado.';
+                return $retorno;
+            }
             $jf = JF::find($request->id_jf);
             $jf->status_jf = 'Em execução';
             $jf->save();

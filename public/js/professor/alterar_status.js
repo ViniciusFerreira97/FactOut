@@ -75,6 +75,10 @@ $(document).ready(function () {
                     $('#modalSuccess .modal-title').html('Alteração Status JF.');
                     $('#modalSuccess').modal('show');
                     $('#alterarJf').click();
+                }else{
+                    $('#modalError .modal-body').html(result['data'][0]);
+                    $('#modalError .modal-title').html('Alteração Status JF.');
+                    $('#modalError').modal('show');
                 }
             }
         });

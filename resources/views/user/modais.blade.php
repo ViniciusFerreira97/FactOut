@@ -31,7 +31,26 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title w-100">Modal title</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Success -->
+
+<!-- Modal Success -->
+<div class="modal fade right mAmber" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-side modal-bottom-right" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100">Modal title</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -50,7 +69,7 @@
     <div class="modal-dialog modal-side modal-bottom-right" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title w-100" id="myModalLabel">Finalização de JF</h4>
+                <h4 class="modal-title w-100">Finalização de JF</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

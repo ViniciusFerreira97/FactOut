@@ -23,7 +23,19 @@ $(document).ready(function (){
         let codigo_turma = $('#slcTurmaJF').val();
         let tamanho_equipe = $('#equipesCadastrarJF').val();
         let tempo_fato = $('#tempoCadastrarJF').val();
+        /*let turma = [];
+        let dados = $('#slcTurmaJF').children(":selected").html();
+        alert(dados);return;
 
+        $('#cadastrarFato').click();
+
+        $('#modalInfo .modal-title').html("Criar JF");
+        $('#modalInfo .modal-body').html('Para criar um JF é necessário haver ao mínimo um Fato !');
+        $('#modalInfo').modal('show');
+        $('#slcJF').empty();
+
+        $('#slcJF').append('');
+        return;*/
         $.ajax({
             url: "/professor/cadastrar_jf",
             type: "POST",

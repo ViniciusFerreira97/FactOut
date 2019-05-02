@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#cadastrarFato').on('click', function () {
         $.ajax({
-            url: "/professor/getJfs",
+            url: "/professor/getJfsPreparacao",
             type: "POST",
             data: {
 

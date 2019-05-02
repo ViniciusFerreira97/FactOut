@@ -21,7 +21,7 @@
             <div class="md-form">
                 <i class="fas fa-clipboard prefix"></i>
                 <input type="text" class="form-control" id="nomeJF">
-                <label for="equipesCadastrarJF">Nome JF</label>
+                <label for="nomeJF">Nome JF</label>
             </div>
         </div>
     </div>
