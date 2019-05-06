@@ -22,7 +22,7 @@ $(document).ready(function () {
                 $('#ModalResponderFato').modal("show");
                 $('#ModalResponderFato .nomeFato').html('<span value="'+data['id']+'">'+data['texto']+'</span>');
                 $('#ModalResponderFato .numFato').html(data['nome']);
-                $('#ModalResponderFato .ordemFato').html(data['ordem'] + 1);
+                $('#ModalResponderFato .ordemFato').html(data['ordem']);
                 if(data['lider']){
                     $('#btnVerdadeiro').show('slide');
                     $('#btnFalso').show('slide');

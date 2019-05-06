@@ -8,7 +8,6 @@ $(document).ready(function () {
 
                 $('#slcJFStatus').empty();
                 $('#slcJFStatus').append('<option value="0" disabled> Selecione o JF </option>');
-                //$('#slcJFStatus').append('<option value="0" disabled> (Codigo Turma) - (Nome JF) </option>');
                 for (var i = 0; i < result['data'].length; i++) {
                     let option = '<option value="' + result['data'][i]['id_jf'] + '-' + result['data'][i]['status_jf'] + '">' + result['data'][i]['disciplina'] + " - " + result['data'][i]['nome'] + " (" + result['data'][i]['status_jf'] + ')</option>';
                     $('#slcJFStatus').append(option);
@@ -70,7 +69,7 @@ $(document).ready(function () {
                 id_jf: idjf,
             },
             success: function (result) {
-                if(result['sucess']){
+                if(result['success']){
                     $('#modalSuccess .modal-body').html(result['data'][0]);
                     $('#modalSuccess .modal-title').html('Alteração Status JF.');
                     $('#modalSuccess').modal('show');

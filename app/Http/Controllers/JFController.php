@@ -101,6 +101,7 @@ class JFController extends Controller
                 $retorno['data'][] = 'Julgamento sem fatos não pode ser iniciado.';
                 return $retorno;
             }
+            $retorno['success'] = true;
             $jf = JF::find($request->id_jf);
             $jf->status_jf = 'Em execução';
             $jf->save();
