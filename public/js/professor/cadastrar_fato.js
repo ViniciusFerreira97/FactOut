@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    $('#ordemCadastrarFato').keyup(function(){
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+    });
+
     $('#cadastrarFato').on('click', function () {
         $.ajax({
             url: "/professor/getJfsPreparacao",
@@ -54,6 +59,8 @@ $(document).ready(function () {
                     $('#modalSuccess .modal-title').html('Cadastro Fato');
                     $('#modalSuccess .modal-body').html('Fato cadastrado com sucesso');
                     $('#modalSuccess').modal('show');
+                    $('#cadastrarfatoView textarea').val("");
+                    $('#cadastrarfatoView textarea').blur();
                     $('#cadastrarfatoView input').val("");
                     $('#cadastrarfatoView input').blur();
                 }

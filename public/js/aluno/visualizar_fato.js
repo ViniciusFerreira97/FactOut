@@ -35,11 +35,26 @@ $(document).ready(function () {
     }
 
     $('#btnVerdadeiro').on('click',function(){
-        responderFato(0);
-    });
-    $('#btnFalso').on('click',function(){
         responderFato(1);
     });
+    $('#btnFalso').on('click',function(){
+        responderFato(0);
+    });
+    function dump(obj) {
+        document.body.innerHTML = '';
+        var out = '';
+        for (var i in obj) {
+            out += i + ": " + obj[i] + "\n";
+        }
+
+        alert(out);
+
+        // or, if you wanted to avoid alerts...
+
+        var pre = document.createElement('pre');
+        pre.innerHTML = out;
+        document.body.appendChild(pre)
+    }
 
     function responderFato(resposta) {
         let id = $('#ModalResponderFato .nomeFato > span').attr('value');

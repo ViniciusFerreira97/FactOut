@@ -9,6 +9,9 @@ use App\Jf as Jf;
 use App\Fato as Fato;
 use App\Resposta as Resposta;
 use Session;
+use App\Equipe as Equipe;
+use App\Events\ProximoFato as ProximoFato;
+use App\Events\FinalizarJF as FimJF;
 
 class AlunoController extends Controller
 {
@@ -72,6 +75,29 @@ class AlunoController extends Controller
         $resposta = Resposta::find($id);
         $resposta->resposta = $request->resposta;
         $resposta->save();
+        $this->ApurarRespostas($request->id_fato);
         return $retorno;
+    }
+
+    protected function ApurarRespostas($id_fato){
+        $qtd_respostas = Resposta::where('id_fato','=',$id_fato)->count();
+        $id_jf = Fato::where('id_fato','=',$id_fato)->pluck('id_jf')->first();
+        $qtd_equipe = Equipe::where('id_jf','=',$id_jf)->count();
+        if($qtd_respostas == $qtd_equipe){
+            $turma = JF::where('id_jf','=',$id_jf)->pluck('codigo_turma')->first();
+            $ordemFatoAtual = Fato::where('id_fato','=',$id_fato)->pluck('ordem_fato')->first();
+            $proximaOrdem = Fato::where('ordem_fato','>',$ordemFatoAtual)->where('id_jf','=',$id_jf)->orderBy('ordem_fato', 'asc')->pluck('ordem_fato')->first();
+            if(is_null($proximaOrdem) || $proximaOrdem == '') {
+                FimJF::broadcast($turma);
+                $fato = JF::find($id_jf);
+                $fato->status_jf = 'Finalizado';
+                $fato->save();
+                return;
+            }
+            $jf = JF::find($id_jf);
+            $jf->fato_atual = $proximaOrdem;
+            $jf->save();
+            ProximoFato::broadcast($turma);
+        }
     }
 }

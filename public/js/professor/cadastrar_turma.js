@@ -163,6 +163,10 @@ $(document).ready(function () {
                     $('#modalError').modal('show');
                 }
 
+                $('#ModalInserirAluno').modal('hide');
+                $('#modalSuccess .modal-title').html('Inserir Aluno');
+                $('#modalSuccess .modal-body').html('Alunos em/sem turma salvo com sucesso !');
+                $('#modalSuccess').modal('show');
             }
         });
     });

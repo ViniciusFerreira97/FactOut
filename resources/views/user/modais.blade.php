@@ -64,9 +64,9 @@
 <!-- Modal Success -->
 
 <!-- Modal Warning Blocking -->
-<div class="modal fade right mAmber" id="modalFimJfAluno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade left mAmber" id="modalFimJfAluno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-side modal-bottom-right" role="document">
+    <div class="modal-dialog modal-side modal-bottom-left" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title w-100">Finalização de JF</h4>
