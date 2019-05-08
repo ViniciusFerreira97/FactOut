@@ -23,7 +23,7 @@
                 <div class="card-deck">
                     <div class="col-3">
                         <div class="card">
-                            <a href="#" id="listaDeJfs">
+                            <a href="#" id="listaDeJfs" class="changeView">
                                 <div class="view overlay">
                                     <i class="fas fa-tasks fa-2x"></i>
                                 </div>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-3 left-less">
                         <div class="card">
-                            <a href="#">
+                            <a href="#" id="Estatisticas" class="changeView" >
                                 <div class="view overlay">
                                     <i class="far fa-chart-bar fa-2x"></i>
                                 </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-3 left-less">
                         <div class="card">
-                            <a href="#">
+                            <a href="#" id="btnRecomendacao" class="changeView" >
                                 <div class="view overlay">
                                     <i class="fas fa-clipboard-list fa-2x"></i>
                                 </div>
@@ -64,5 +64,6 @@
     </div>
     <div class="main_conteudo">
         @include('aluno.visualizar_JF')
+        @include('aluno.estatisticas')
     </div>
 </div>

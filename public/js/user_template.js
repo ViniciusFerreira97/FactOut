@@ -1,6 +1,6 @@
 $(document).ready(function () {
     document.title = 'Home - FactOut';
-    $('#pageBody').css('height', '100vh')
+    $('#pageBody').css('min-height', '100vh')
 
     $('.main .subTitle a').on('click', function (e) {
         e.preventDefault();
