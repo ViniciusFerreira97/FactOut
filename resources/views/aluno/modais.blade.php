@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-2"></div>
                     <div class="col">
-                        Tempo: <span class="tempoFato"></span>
+                        Tempo: <span id="tempoFato"></span>
                     </div>
                 </div>
                 <br>

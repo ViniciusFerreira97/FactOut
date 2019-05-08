@@ -11,6 +11,7 @@ use DB;
 use Session;
 use App\Events\ExecutarJF as ExecJF;
 use App\Events\FinalizarJF as FimJF;
+use App\Events\ProximoFato as ProximoFato;
 
 class JFController extends Controller
 {
@@ -159,5 +160,43 @@ class JFController extends Controller
         if($lider > 0)
             $retorno['lider'] = true;
         return $retorno;
+    }
+
+    public function proximoFato($id_jf,$id_fato = null){
+        if($id_fato == null){
+            $ordemFatoAtual = JF::where('id_jf','=',$id_jf)->pluck('fato_atual')->first();
+            $id_fato = Fato::where('id_jf','=',$id_jf)->where('ordem_fato','=',$ordemFatoAtual)->pluck('id_fato')->first();
+
+        }
+        $turma = JF::where('id_jf','=',$id_jf)->pluck('codigo_turma')->first();
+        $ordemFatoAtual = Fato::where('id_fato','=',$id_fato)->pluck('ordem_fato')->first();
+        $proximaOrdem = Fato::where('ordem_fato','>',$ordemFatoAtual)->where('id_jf','=',$id_jf)->orderBy('ordem_fato', 'asc')->pluck('ordem_fato')->first();
+        if(is_null($proximaOrdem) || $proximaOrdem == '') {
+            FimJF::broadcast($turma);
+            $fato = JF::find($id_jf);
+            $fato->status_jf = 'Finalizado';
+            $fato->save();
+            return;
+        }
+        $jf = JF::find($id_jf);
+        $jf->fato_atual = $proximaOrdem;
+        $jf->save();
+        ProximoFato::broadcast($turma);
+    }
+
+    public function verificaJfs(){
+        $jfs = JF::where('status_jf','=','Em execução')->select('*')->get();
+        foreach ($jfs as $jf){
+            $now = Now();
+            $timeExec = $jf->updated_at->diffInSeconds($now);
+            $seconds = $timeExec % 60;
+            $minutes = round($timeExec/60);
+            $timePerJf = $jf->tempo_fato;
+            if($minutes >= $timePerJf)
+                self::proximoFato($jf->id_jf);
+            $array = [$minutes,$timePerJf];
+            return $array;
+        }
+        return 'a';
     }
 }

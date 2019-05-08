@@ -13,16 +13,19 @@ $(document).ready(function () {
     function visualizarFato(jf){
         $.ajax({
             url: "/JF/get_fato_atual",
+            //url: "/JF/proximo_fato",
             type: "POST",
             data: {
                 id_jf: jf,
             },
             success: function (data) {
+                //console.log(data);return;
                 $('#modalJFExecucao').modal('hide');
                 $('#ModalResponderFato').modal("show");
                 $('#ModalResponderFato .nomeFato').html('<span value="'+data['id']+'">'+data['texto']+'</span>');
                 $('#ModalResponderFato .numFato').html(data['nome']);
                 $('#ModalResponderFato .ordemFato').html(data['ordem']);
+                chronometer();
                 if(data['lider']){
                     $('#btnVerdadeiro').show('slide');
                     $('#btnFalso').show('slide');
@@ -71,5 +74,45 @@ $(document).ready(function () {
                 $('#modalSuccess').modal('show');
             }
         });
+    }
+
+    function chronometer(){
+        // Set the date we're counting down to
+        let countDownDate = new Date("Jan 5, 2021 15:49:25").getTime();
+
+        // Update the count down every 1 second
+        let x = setInterval(function() {
+
+            // Get todays date and time
+            let now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            let distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if(seconds == 0){
+                $.ajax({
+                    url: "/JF/proximo_fato",
+                    type: "POST",
+                    data: {
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+            // Display the result in the element with id="demo"
+            document.getElementById("tempoFato").innerHTML = minutes + "m " + seconds + "s ";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("tempoFato").innerHTML = "EXPIRED";
+            }
+        }, 1000);
     }
 });

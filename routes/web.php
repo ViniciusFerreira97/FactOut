@@ -61,6 +61,7 @@ Route::get("/Jf/get_jf_exec_aluno",'JFController@getJfExecucaoAluno');
 Route::get("/Jf/get_jf_prep_exec_aluno",'JFController@getJfPrepExec');
 Route::post('/JF/get_jf_Aluno','JFController@getJFAluno');
 Route::post('/JF/get_fato_atual','JFController@getFatoAtual');
+Route::post('/JF/proximo_fato','JFController@verificaJfs');
 
 Route::post("/equipe/alunos_da_equipe",'EquipeController@Alunos_Minha_Equipe');
 Route::post("/equipe/alunos_sem_equipe",'EquipeController@Get_alunos_sem_equipe');
