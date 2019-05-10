@@ -64,7 +64,7 @@ class ProfessorController extends Controller
         $jf->nome = $request->nome_JF;
         $jf->codigo_turma = $request->codigo_turma;
         $jf->tamanho_equipe = $request->tamanho_equipe;
-        $jf->tempo_fato = $request->tempo_fato*100;
+        $jf->tempo_fato = $request->tempo_fato;
         $jf->status_jf = 'Em preparação';
         $jf -> save();
         return $return;

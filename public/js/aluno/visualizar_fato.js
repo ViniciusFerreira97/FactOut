@@ -13,7 +13,6 @@ $(document).ready(function () {
     function visualizarFato(jf) {
         $.ajax({
             url: "/JF/get_fato_atual",
-            //url: "/JF/proximo_fato",
             type: "POST",
             data: {
                 id_jf: jf,
@@ -71,6 +70,7 @@ $(document).ready(function () {
                 resposta: resposta,
             },
             success: function (data) {
+                clearInterval(xTiming);
                 $('#modalSuccess .modal-title').html('Salvar Resposta');
                 $('#modalSuccess .modal-body').html('Resposta salva com Sucesso !');
                 $('#modalSuccess').modal('show');
@@ -104,7 +104,6 @@ $(document).ready(function () {
                     type: "POST",
                     data: {},
                     success: function (data) {
-                        console.log(data);
                     }
                 });
             }

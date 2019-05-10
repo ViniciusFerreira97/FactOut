@@ -89,7 +89,8 @@ class EquipeController extends Controller
         $equipe->id_jf = $id_jf;
         $equipe -> save();
         $aluno_equipe = new Aluno_Equipe;
-        $id_equipe = DB::table('equipe')->where('lider','=', Session::get('id_usuario'))->pluck('id_equipe')->first();
+        $id_equipe = DB::table('equipe')->where('lider','=', Session::get('id_usuario'))
+            ->where('id_jf','=',$id_jf)->pluck('id_equipe')->first();
         $aluno_equipe->id_usuario = Session::get('id_usuario');
         $aluno_equipe->id_equipe = $id_equipe;
         $aluno_equipe -> save();

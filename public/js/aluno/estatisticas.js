@@ -24,7 +24,7 @@ $(document).ready(function () {
             return;
         $('#estatisticasPosSelecao').show('slide');
 
-        var id_jf = $('#estatisticaSlcJF option:selected').attr("value");
+        var id_jf = $('#estatisticaSlcJF').val();
         $.ajax({
             url: "/aluno/jfs_corretos_errados",
             type: "POST",
@@ -32,7 +32,6 @@ $(document).ready(function () {
                 id_jf: id_jf,
             },
             success: function (result) {
-                console.log(result);
                 $('#fatosCorretosJF').empty();
                 $('#fatosCorretosJF').append('<option>' + 'Fatos Corretos' + '</option>');
                 for (var i = 0; i < result['certos'].length; i++) {

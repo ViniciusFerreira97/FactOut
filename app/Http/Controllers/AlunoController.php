@@ -85,6 +85,9 @@ class AlunoController extends Controller
         $qtd_respostas = Resposta::where('id_fato','=',$id_fato)->count();
         $id_jf = Fato::where('id_fato','=',$id_fato)->pluck('id_jf')->first();
         $qtd_equipe = Equipe::where('id_jf','=',$id_jf)->count();
+        $response = [];
+        $response[] = $qtd_respostas;
+        $response[] = $qtd_equipe;
         if($qtd_respostas == $qtd_equipe){
             $jf = new JFC();
             $jf->proximoFato($id_jf,$id_fato);
@@ -107,32 +110,34 @@ class AlunoController extends Controller
 
     public function VerificaRespostas(Request $request){
         $retorno = [];
-        $id_equipe = Aluno_Equipe::where('id_usuario', '=', Session::get('id_usuario'))->pluck('id_equipe')->first();
-        $lider = Equipe::where('id_equipe', '=', $id_equipe)->pluck('lider')->first();
-        $respostasEquipe = Resposta::where('id_lider', '=', $lider)->get();
-        $respostasCorretas = Fato::where('id_jf', '=', $request->id_jf)->get();
+        $lider = DB::table('aluno_equipe as ae')->join('equipe as e','e.id_equipe','=','ae.id_equipe')
+            ->where('e.id_jf','=',$request->id_jf)->where('ae.id_usuario','=',Session::get('id_usuario'))
+            ->pluck('e.lider')->first();
+        //$lider = Equipe::where('id_equipe', '=', $id_equipe)->pluck('lider')->first();
+        $fatos = Fato::where('id_jf','=',$request->id_jf)->get();
+        $array = [];
+        foreach ($fatos as $eq){
+            $array_fatos[] = $eq->id_fato;
+        }
+        $respostasEquipe = Resposta::where('id_lider', '=', $lider)->whereIn('id_fato',$array_fatos)->orderBy('id_fato')->get();
+        $respostasCorretas = Fato::where('id_jf', '=', $request->id_jf)->whereIn('id_fato',$array_fatos)->orderBy('id_fato')->get();
         $contadorCertos = 0;
         $contadorErrados = 0;
         $retorno['certos'] = [];
         $retorno['errados'] = [];
-        for($i = 0; $i < count($respostasCorretas); $i++)
-        {
-            if(isset($respostasEquipe[$i]))
-            {
-                
-                if($respostasEquipe[$i]->id_fato == $respostasCorretas[$i]->id_fato && $respostasEquipe[$i]->resposta == $respostasCorretas[$i]->resposta_fato)
-                {
+        for($i = 0; $i < count($respostasCorretas); $i++) {
+            if (isset($respostasEquipe[$i])) {
+
+                if ($respostasEquipe[$i]->id_fato == $respostasCorretas[$i]->id_fato && $respostasEquipe[$i]->resposta == $respostasCorretas[$i]->resposta_fato) {
                     $retorno['certos'][$contadorCertos] = $respostasEquipe[$i]->id_fato;
-                    $contadorCertos ++;
-                }
-                else{
+                    $contadorCertos++;
+                } else {
                     $retorno['errados'][$contadorErrados] = $respostasEquipe[$i]->id_fato;
-                    $contadorErrados ++;
+                    $contadorErrados++;
                 }
-            }
-            else{
+            } else {
                 $retorno['errados'][$contadorErrados] = $respostasCorretas[$i]->id_fato;
-                $contadorErrados ++;
+                $contadorErrados++;
             }
         }
         return $retorno;

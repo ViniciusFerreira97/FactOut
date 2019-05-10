@@ -41,7 +41,7 @@
             <div class="md-form">
                 <i class="far fa-clock prefix"></i>
                 <input type="number" class="form-control" id="tempoCadastrarJF">
-                <label for="tempoCadastrarJF">Tempo Exibição de Fato</label>
+                <label for="tempoCadastrarJF">Tempo Exibição de Fato (segundos)</label>
             </div>
         </div>
     </div>
