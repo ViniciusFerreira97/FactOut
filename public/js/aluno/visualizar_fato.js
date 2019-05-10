@@ -110,7 +110,8 @@ $(document).ready(function () {
             }
             
             // If the count down is finished, write some text
-            if (distance < 0) {
+            //alert(distance);
+            if (seconds == 0 && minutes == 0) {
                 clearInterval(xTiming);
                 document.getElementById("tempoFato").innerHTML = "EXPIRED";
             }
