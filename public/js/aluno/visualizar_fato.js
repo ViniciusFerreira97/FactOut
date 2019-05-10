@@ -1,16 +1,16 @@
 $(document).ready(function () {
 
-    $('#btnVisualizarFatoModal').on('click',function(){
+    $('#btnVisualizarFatoModal').on('click', function () {
         let jf = $('#slcVisualizarFatoModalJFExec').val();
         visualizarFato(jf);
     });
 
-    $('#btnVisualizarFato').on('click',function(){
+    $('#btnVisualizarFato').on('click', function () {
         let jf = $('#slcJfDisponiveis').val();
         visualizarFato(jf);
     });
 
-    function visualizarFato(jf){
+    function visualizarFato(jf) {
         $.ajax({
             url: "/JF/get_fato_atual",
             //url: "/JF/proximo_fato",
@@ -19,17 +19,18 @@ $(document).ready(function () {
                 id_jf: jf,
             },
             success: function (data) {
-                //console.log(data);return;
                 $('#modalJFExecucao').modal('hide');
                 $('#ModalResponderFato').modal("show");
-                $('#ModalResponderFato .nomeFato').html('<span value="'+data['id']+'">'+data['texto']+'</span>');
+                $('#ModalResponderFato .nomeFato').html('<span value="' + data['id'] + '">' + data['texto'] + '</span>');
                 $('#ModalResponderFato .numFato').html(data['nome']);
                 $('#ModalResponderFato .ordemFato').html(data['ordem']);
-                chronometer();
-                if(data['lider']){
+                let datainicio = data.inicio;
+                let datafim = data.fim;
+                chronometer(datafim);
+                if (data['lider']) {
                     $('#btnVerdadeiro').show('slide');
                     $('#btnFalso').show('slide');
-                }else{
+                } else {
                     $('#btnVerdadeiro').hide('slide');
                     $('#btnFalso').hide('slide');
                 }
@@ -37,12 +38,13 @@ $(document).ready(function () {
         });
     }
 
-    $('#btnVerdadeiro').on('click',function(){
+    $('#btnVerdadeiro').on('click', function () {
         responderFato(1);
     });
-    $('#btnFalso').on('click',function(){
+    $('#btnFalso').on('click', function () {
         responderFato(0);
     });
+
     function dump(obj) {
         document.body.innerHTML = '';
         var out = '';
@@ -76,12 +78,15 @@ $(document).ready(function () {
         });
     }
 
-    function chronometer(){
+    var xTiming;
+
+    function chronometer(fim) {
         // Set the date we're counting down to
-        let countDownDate = new Date("Jan 5, 2021 15:49:25").getTime();
+        //let countDownDate = new Date("Jan 5, 2021 15:49:25").getTime();
+        let countDownDate = new Date(fim).getTime();
 
         // Update the count down every 1 second
-        let x = setInterval(function() {
+        xTiming = setInterval(function () {
 
             // Get todays date and time
             let now = new Date().getTime();
@@ -93,26 +98,26 @@ $(document).ready(function () {
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            if(seconds == 0){
+            if (seconds == 0) {
                 $.ajax({
                     url: "/JF/proximo_fato",
                     type: "POST",
-                    data: {
-                    },
+                    data: {},
                     success: function (data) {
                         console.log(data);
                     }
                 });
             }
-
+            
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(xTiming);
+                document.getElementById("tempoFato").innerHTML = "EXPIRED";
+            }
             // Display the result in the element with id="demo"
             document.getElementById("tempoFato").innerHTML = minutes + "m " + seconds + "s ";
 
-            // If the count down is finished, write some text
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("tempoFato").innerHTML = "EXPIRED";
-            }
+
         }, 1000);
     }
 });

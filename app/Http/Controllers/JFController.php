@@ -150,12 +150,16 @@ class JFController extends Controller
     public function getFatoAtual(Request $request){
         $atual = JF::where('id_jf','=',$request->id_jf)->pluck('fato_atual')->first();
         $nome = JF::where('id_jf','=',$request->id_jf)->pluck('nome')->first();
+        $data = JF::where('id_jf','=',$request->id_jf)->pluck('updated_at')->first();
+        $tempo = JF::where('id_jf','=',$request->id_jf)->pluck('tempo_fato')->first();
         $fato  = Fato::where('id_jf','=',$request->id_jf)->where('ordem_fato','=',$atual)->select('texto_fato','id_fato')->first();
         $retorno['texto'] = $fato->texto_fato;
         $retorno['id'] = $fato->id_fato;
         $retorno['ordem'] = $atual;
         $retorno['nome'] = $nome;
         $retorno['lider'] = false;
+        $retorno['inicio'] = date('M j, o G:i:s',strtotime($data));
+        $retorno['fim'] = date('M j, o G:i:s', strtotime('+'.$tempo.' minutes', strtotime($data)));
         $lider = DB::table('julgamento_fatos as jf')->join('equipe as e','e.id_jf','=','jf.id_jf')->where('e.lider','=',Session::get('id_usuario'))->count();
         if($lider > 0)
             $retorno['lider'] = true;
