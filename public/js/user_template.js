@@ -71,7 +71,8 @@ $(document).ready(function () {
 
     var pusher = new Pusher('1b180fb416dacdca1743', {
         cluster: 'us2',
-        forceTLS: true
+        forceTLS: true,
+        transports: 'websocket'
     });
     var executarJF = pusher.subscribe('executarJF');
     executarJF.bind('App\\Events\\ExecutarJF', function (data) {
