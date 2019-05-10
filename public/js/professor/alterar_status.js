@@ -5,7 +5,7 @@ $(document).ready(function () {
             url: "/professor/getJfs",
             type: "GET",
             success: function (result) {
-
+                console.log(result);
                 $('#slcJFStatus').empty();
                 $('#slcJFStatus').append('<option value="0" disabled> Selecione o JF </option>');
                 for (var i = 0; i < result['data'].length; i++) {

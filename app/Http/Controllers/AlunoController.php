@@ -8,6 +8,7 @@ use DB;
 use App\Jf as Jf;
 use App\Fato as Fato;
 use App\Resposta as Resposta;
+use App\Aluno_Equipe as Aluno_Equipe;
 use Session;
 use App\Equipe as Equipe;
 use App\Events\ProximoFato as ProximoFato;
@@ -89,4 +90,52 @@ class AlunoController extends Controller
             $jf->proximoFato($id_jf,$id_fato);
         }
     }
+
+    public function Get_Jfs_Finalizados()
+    {
+        $retorno = [];
+        $finalizados = Jf::where('status_jf', '=', 'Finalizado')->get();
+        $contador = 0;
+        foreach ($finalizados as $f){
+            $retorno[$contador]['id_jf'] = $f->id_jf;
+            $retorno[$contador]['nome'] = $f->nome;
+            $retorno[$contador]['status_jf'] = $f->status_jf;
+            $contador++;
+        }
+        return $retorno;
+    }
+
+    public function VerificaRespostas(Request $request){
+        $retorno = [];
+        $id_equipe = Aluno_Equipe::where('id_usuario', '=', Session::get('id_usuario'))->pluck('id_equipe')->first();
+        $lider = Equipe::where('id_equipe', '=', $id_equipe)->pluck('lider')->first();
+        $respostasEquipe = Resposta::where('id_lider', '=', $lider)->get();
+        $respostasCorretas = Fato::where('id_jf', '=', $request->id_jf)->get();
+        $contadorCertos = 0;
+        $contadorErrados = 0;
+        $retorno['certos'] = [];
+        $retorno['errados'] = [];
+        for($i = 0; $i < count($respostasCorretas); $i++)
+        {
+            if(isset($respostasEquipe[$i]))
+            {
+                
+                if($respostasEquipe[$i]->id_fato == $respostasCorretas[$i]->id_fato && $respostasEquipe[$i]->resposta == $respostasCorretas[$i]->resposta_fato)
+                {
+                    $retorno['certos'][$contadorCertos] = $respostasEquipe[$i]->id_fato;
+                    $contadorCertos ++;
+                }
+                else{
+                    $retorno['errados'][$contadorErrados] = $respostasEquipe[$i]->id_fato;
+                    $contadorErrados ++;
+                }
+            }
+            else{
+                $retorno['errados'][$contadorErrados] = $respostasCorretas[$i]->id_fato;
+                $contadorErrados ++;
+            }
+        }
+        return $retorno;
+    }
+
 }

@@ -39,3 +39,6 @@ body .toHide{
 body #btnFixedFatos{
     border-radius: 8px;
 }
+#estatisticasView{
+    padding-bottom: 3%;
+}
