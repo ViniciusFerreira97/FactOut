@@ -22,7 +22,7 @@ class JFController extends Controller
                     ->where('u.id_usuario','=',Session::get('id_usuario'))->get();
         $retorno = [];
         $cont = 0;
-        print_r($jfs);die();
+        $retorno['data'] = [];
         foreach ($jfs as $j){
             $retorno['data'][$cont]['id_jf'] = $j->id_jf;
             $retorno['data'][$cont]['status_jf'] = $j->status_jf;
