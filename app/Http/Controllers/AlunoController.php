@@ -18,7 +18,6 @@ use App\Http\Controllers\JFController as JFC;
 class AlunoController extends Controller
 {
     //
-
     public function registrarAluno($id_aluno,$curso,$codigo_turma = null){
         $aluno = new aluno();
         $aluno->id_usuario = $id_aluno;
@@ -71,6 +70,7 @@ class AlunoController extends Controller
             $resposta->id_fato = $request->id_fato;
             $resposta->resposta = $request->resposta;
             $resposta->save();
+            $this->ApurarRespostas($request->id_fato);
             return $retorno;
         }
         $id = Resposta::where('id_fato','=',$request->id_fato)->where('id_lider','=',Session::get('id_usuario'))->pluck('id_resposta')->first();

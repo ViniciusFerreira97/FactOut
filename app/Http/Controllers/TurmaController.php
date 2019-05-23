@@ -54,6 +54,7 @@ class TurmaController extends Controller
                 $retorno['data'][$contador]['login'] = $u->login;
                 $retorno['data'][$contador]['nome'] = $u->nome;
             }
+            $contador++;
         }
 
         return $retorno;

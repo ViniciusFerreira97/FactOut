@@ -2,7 +2,7 @@
 <link href="{{asset('css/user/user_template.css')}}" rel="stylesheet" type="text/css">
 <nav class="navbar navbar-expand-lg navbar-light white double-nav scrolling-navbar">
     <a class="navbar-brand" href="#">
-        <img src="/img/logos/fact_out_logo_preto.png" height="30" alt="FactOut Logo">
+        <img src="/img/logos/fact_out_logo_preto.png" height="30" alt="TaxiOut Logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContentUser"
             aria-controls="navContentUser" aria-expanded="false" aria-label="Toggle navbar">

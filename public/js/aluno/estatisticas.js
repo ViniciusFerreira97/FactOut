@@ -67,8 +67,9 @@ $(document).ready(function () {
                     }
                 });
 
-                let nominal = (certos / (certos + erros));
-                let real = nominal / 2;
+                let nominal = (certos / (certos + erros)) * 100;
+                let total = certos + erros;
+                let real = (certos - (total/2)) / (total - (total /2)) * 100;
                 $("#acertosTotais").html(" " + certos);
                 $("#errosTotais").html(" " + erros);
                 $("#acertosNominal").html(" " + (nominal.toFixed(1)) + "%");
