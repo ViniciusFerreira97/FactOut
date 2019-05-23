@@ -112,7 +112,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-amber btn-sm" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-amber btn-sm">Salvar alterações</button>
+                <button type="button" class="btn btn-amber btn-sm" id="btnSalvarAlteracaoUsuario">Salvar alterações</button>
             </div>
         </div>
     </div>
@@ -121,4 +121,5 @@
 <!-- /Modals -->
 
 @include('layouts.footer')
+<script type="text/javascript" src="/js/perfil.js"></script>
 <script type="text/javascript" src="/js/user_template.js"></script>

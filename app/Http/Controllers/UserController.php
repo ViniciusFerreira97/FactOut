@@ -113,4 +113,29 @@ class UserController extends Controller
     public function getName(){
         return \App\usuario::where('id_usuario','=',\Illuminate\Support\Facades\Session::get('id_usuario'))->pluck('login')->first();
     }
+
+    public function get_user_data(){
+        $dataUser = \App\usuario::where('id_usuario','=',Session::get('id_usuario'))->first();
+        $retorno['login'] = $dataUser->login;
+        $retorno['nome'] = $dataUser->nome;
+        $retorno['email'] = $dataUser->email;
+        $dataAluno = \App\aluno::where('id_usuario','=',Session::get('id_usuario'))->first();
+        if(isset($dataAluno->curso))
+            $retorno['curso'] = $dataAluno->curso;
+        return $retorno;
+    }
+
+    public function set_user_data(Request $request){
+        $user = \App\usuario::find(Session::get('id_usuario'));
+        $user->nome = $request->nome;
+        $user->email = $request->email;
+        if($request->senha != '')
+            $user->senha = $request->senha;
+        $user->save();
+        if($request->curso != ''){
+            $aluno = \App\aluno::find(Session::get('id_usuario'));
+            $aluno->curso = $request->curso;
+            $aluno->save();
+        }
+    }
 }
