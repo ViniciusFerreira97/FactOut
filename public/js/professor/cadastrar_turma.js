@@ -170,4 +170,11 @@ $(document).ready(function () {
             }
         });
     });
+
+    $("#nomeInserirAluno").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#slcAluno option").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
 });
