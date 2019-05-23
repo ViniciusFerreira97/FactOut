@@ -21,29 +21,11 @@ $(document).ready(function () {
         }
     });
 
-    /*function listajfs()
-    {
-        $.ajax({
-            url: "/JF/get_jf_Aluno",
-            type: "POST",
-            data: {
-            },
-            success: function (result) {
-                $('#slcJfDisponiveis').empty();
-               for(var i = 0; i < result['data'].length; i++){
-                   let option = '<option value="'+result['data'][i]['codigo']+'">'+result['data'][i]['nome']+' - '+result['data'][i]['disciplina']+' - ' + result['data'][i]['status_jf']+'</option>';
-                   $('#slcJfDisponiveis').append(option);
-               }
-                $('#slcJfDisponiveis').change();
-            }
-        });
-    }*/
-
     $('#ModalInserirAluno').on('shown.bs.modal', function () {
 
         var opcao = $('#slcJfDisponiveis option:selected').attr("value");
-        $('#slcInserir').empty();
-        $('#slcAluno').empty();
+        $('#slcInserirEquipe').empty();
+        $('#slcAlunoEquipe').empty();
         $.ajax({
             url: "/equipe/alunos_sem_equipe",
             type: "POST",
@@ -52,10 +34,10 @@ $(document).ready(function () {
             },
             success: function (result) {
                 //$('body').html(result);return; 
-                $('#slcAluno').append('<option value="0" disabled> Alunos Sem Equipe </option>');
+                $('#slcAlunoEquipe').append('<option value="0" disabled> Alunos Sem Equipe </option>');
                 for (var i = 0; i < result['data'].length; i++) {
                     let option = '<option value="' + result['data'][i]['id_usuario'] + '">' + result['data'][i]['nome'] + '</option>';
-                    $('#slcAluno').append(option);
+                    $('#slcAlunoEquipe').append(option);
                 }
             }
         });
@@ -89,16 +71,16 @@ $(document).ready(function () {
         });
     });
 
-    $('#slcAluno').on('click', function () {
-        var selectedOpts = $('#slcAluno option:selected');
+    $('#slcAlunoEquipe').on('click', function () {
+        var selectedOpts = $('#slcAlunoEquipe option:selected');
         if (selectedOpts.length != 0 && selectedOpts.value != 0)
-            $('#slcInserir').append(selectedOpts);
+            $('#slcInserirEquipe').append(selectedOpts);
     });
 
-    $('#slcInserir').on('click', function () {
-        var selectedOpts = $('#slcInserir option:selected');
+    $('#slcInserirEquipe').on('click', function () {
+        var selectedOpts = $('#slcInserirEquipe option:selected');
         if (selectedOpts.length != 0 && selectedOpts.value != 0)
-            $('#slcAluno').append(selectedOpts);
+            $('#slcAlunoEquipe').append(selectedOpts);
     });
 
     $('#btnFixedFatos').on('click', function () {
@@ -173,5 +155,10 @@ $(document).ready(function () {
         document.body.innerHTML = out;
     }
 
-    //listajfs();
+    $("#nomeInserirAlunoEquipe").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#slcAlunoEquipe option").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
 });

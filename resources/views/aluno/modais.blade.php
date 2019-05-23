@@ -166,7 +166,7 @@
                     <div class="col-8">
                         <div class="md-form">
                             <i class="fas fa-user-alt prefix"></i>
-                            <input type="text" id="nomeInserirAluno" class="form-control">
+                            <input type="text" id="nomeInserirAlunoEquipe" class="form-control">
                             <label for="nomeInserirAluno">Nome</label>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                 <div class="row">
                     <div class="col-2"></div>
                     <div class="col-8">
-                        <select id="slcAluno" class="custom-select" multiple>
+                        <select id="slcAlunoEquipe" class="custom-select" multiple>
                             <option disabled>Alunos Sem Equipe</option>
                         </select>
                     </div>
@@ -182,7 +182,7 @@
                 <div class="row top-more-4">
                     <div class="col-2"></div>
                     <div class="col-8">
-                        <select id="slcInserir" class="custom-select" multiple>
+                        <select id="slcInserirEquipe" class="custom-select" multiple>
                             <option value="0" disabled>Alunos Na Equipe</option>
                         </select>
                     </div>
