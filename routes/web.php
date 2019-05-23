@@ -30,7 +30,8 @@ Route::get('/home',function(){
 
 Route::post('/login', ['as'=> 'user.login', 'uses' => 'Controller@fazerLogin']);
 
-Route::post('/usuario/cadastrar','UserController@registrarUsuario');
+Route::get('/usuario/get_user_data','UserController@get_user_data');
+Route::post('/usuario/set_user_data','UserController@set_user_data');
 Route::post('/usuario/cadastrar','UserController@registrarUsuario');
 Route::post('/usuario/login','UserController@logarUsuario');
 Route::get('/usuario/sair',function(){
