@@ -113,7 +113,6 @@ class AlunoController extends Controller
         $lider = DB::table('aluno_equipe as ae')->join('equipe as e','e.id_equipe','=','ae.id_equipe')
             ->where('e.id_jf','=',$request->id_jf)->where('ae.id_usuario','=',Session::get('id_usuario'))
             ->pluck('e.lider')->first();
-        //$lider = Equipe::where('id_equipe', '=', $id_equipe)->pluck('lider')->first();
         $fatos = Fato::where('id_jf','=',$request->id_jf)->get();
         $array = [];
         foreach ($fatos as $eq){
@@ -129,17 +128,31 @@ class AlunoController extends Controller
             if (isset($respostasEquipe[$i])) {
 
                 if ($respostasEquipe[$i]->id_fato == $respostasCorretas[$i]->id_fato && $respostasEquipe[$i]->resposta == $respostasCorretas[$i]->resposta_fato) {
-                    $retorno['certos'][$contadorCertos] = $respostasEquipe[$i]->id_fato;
+                    $retorno['certos'][$contadorCertos]['id'] = $respostasEquipe[$i]->id_fato;
+                    $retorno['certos'][$contadorCertos]['pergunta'] = $respostasCorretas[$i]->texto_fato;
                     $contadorCertos++;
                 } else {
-                    $retorno['errados'][$contadorErrados] = $respostasEquipe[$i]->id_fato;
+                    $retorno['errados'][$contadorErrados]['id'] = $respostasEquipe[$i]->id_fato;
+                    $retorno['errados'][$contadorErrados]['pergunta'] = $respostasCorretas[$i]->texto_fato;
                     $contadorErrados++;
                 }
             } else {
                 $retorno['errados'][$contadorErrados] = $respostasCorretas[$i]->id_fato;
+                $retorno['errados'][$contadorErrados]['pergunta'] = $respostasCorretas[$i]->texto_fato;
                 $contadorErrados++;
             }
         }
+        return $retorno;
+    }
+
+    public function ModalRespondidas(Request $request){
+        $retorno = [];
+        $fato = Fato::find($request->id_fato);
+        $contador = 0;
+        $retorno['id'] = $fato->id_fato;
+        $retorno['ordem'] = $fato->ordem_fato;
+        $retorno['texto'] = $fato->texto_fato;
+        $retorno['resposta'] = $fato->resposta_fato;
         return $retorno;
     }
 

@@ -49,7 +49,57 @@
         </div>
     </div>
 </div>
-<!-- /Modal Responder fato -->
+<!-- /Modal Listar fato -->
+
+<!-- Modal Responder fato -->
+<div class="modal fade mAmber" id="ModalListarFato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100">Verificação de Fatos Finalizados</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                       Titulo: <span class="numFatoResposta"></span>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        Ordem Fato: <span class="ordemFatoResposta"> </span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        Fato: <span class="nomeFatoResposta"></span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-1">
+                        <button type="button" id="btnVerdadeiroResposta" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Verdadeiro"> <i class="fas fa-check"></i> </button>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-1">
+                        <button type="button" id="btnFalsoResposta" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Falso"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-amber btn-sm fechar" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Modal Listar fato -->
 
 <!-- Modal Ver Equipe -->
 <div class="modal fade mAmber" id="ModalVerEquipe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

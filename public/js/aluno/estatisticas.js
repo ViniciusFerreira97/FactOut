@@ -33,17 +33,17 @@ $(document).ready(function () {
             },
             success: function (result) {
                 $('#fatosCorretosJF').empty();
-                $('#fatosCorretosJF').append('<option>' + 'Fatos Corretos' + '</option>');
+                $('#fatosCorretosJF').append('<option value="0">' + 'Fatos Corretos' + '</option>');
                 for (var i = 0; i < result['certos'].length; i++) {
-                    let option = '<option value="' + result['certos'][i] + '">' + result['certos'][i] + '</option>';
+                    let option = '<option value="' + result['certos'][i]['id'] + '">' + result['certos'][i]['id']+ ' - ' + result['certos'][i]['pergunta'] + '</option>';
                     $('#fatosCorretosJF').append(option);
                 }
                 $('#fatosCorretosJF').change();
 
                 $('#fatosErradosJF').empty();
-                $('#fatosErradosJF').append('<option>' + 'Fatos Errados' + '</option>');
+                $('#fatosErradosJF').append('<option value="0">' + 'Fatos Errados' + '</option>');
                 for (var i = 0; i < result['errados'].length; i++) {
-                    let option = '<option value="' + result['errados'][i] + '">' + result['errados'][i] + '</option>';
+                    let option = '<option value="' + result['errados'][i]['id'] + '">' + result['errados'][i]['id'] + ' - ' + result['errados'][i]['pergunta'] + '</option>';
                     $('#fatosErradosJF').append(option);
                 }
                 $('#fatosErradosJF').change();
@@ -78,5 +78,64 @@ $(document).ready(function () {
         });
     });
 
+    $('#fatosCorretosJF').on('change', function () {
+        if ($(this).val() == 0)
+            return;
+        let id_fato = $('#fatosCorretosJF').val();
+        $.ajax({
+            url: "/aluno/jfs_imprimir_fatos",
+            type: "POST",
+            data: {
+                id_fato: id_fato,
+            },
+            success: function (result) {
+                console.log(result);
+                $('.numFatoResposta').html(result['id']);
+                $('.ordemFatoResposta').html(result['ordem']);
+                $('.nomeFatoResposta').html(result['texto']);
+                if(result['resposta'] == 0)
+                {
+                    $('#btnFalsoResposta').prop('disabled', false)
+                    $('#btnVerdadeiroResposta').prop('disabled', true);
+                }
+                else
+                {
+                    $('#btnFalsoResposta').prop('disabled', true)
+                    $('#btnVerdadeiroResposta').prop('disabled', false);
+                }
+                $('#ModalListarFato').modal('show');
+            }
+        });
+    });
+
+    $('#fatosErradosJF').on('change', function () {
+        if ($(this).val() == 0)
+            return;
+        let id_fato = $('#fatosErradosJF').val();
+        $.ajax({
+            url: "/aluno/jfs_imprimir_fatos",
+            type: "POST",
+            data: {
+                id_fato: id_fato,
+            },
+            success: function (result) {
+                console.log(result);
+                $('.numFatoResposta').html(result['id']);
+                $('.ordemFatoResposta').html(result['ordem']);
+                $('.nomeFatoResposta').html(result['texto']);
+                if(result['resposta'] == 0)
+                {
+                    $('#btnFalsoResposta').prop('disabled', false)
+                    $('#btnVerdadeiroResposta').prop('disabled', true);
+                }
+                else
+                {
+                    $('#btnFalsoResposta').prop('disabled', true)
+                    $('#btnVerdadeiroResposta').prop('disabled', false);
+                }
+                $('#ModalListarFato').modal('show');
+            }
+        });
+    });
 
 });

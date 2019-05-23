@@ -52,6 +52,7 @@ Route::post('/aluno/alunos_sem_turma','AlunoController@Get_Alunos_Sem_Turma');
 Route::post('/aluno/responder_fato','AlunoController@responder_fato');
 Route::get('/aluno/jfs_finalizado','AlunoController@Get_Jfs_Finalizados');
 Route::post('/aluno/jfs_corretos_errados','AlunoController@VerificaRespostas');
+Route::post('/aluno/jfs_imprimir_fatos','AlunoController@ModalRespondidas');
 
 Route::post("/turma/alunos_da_turma",'TurmaController@Alunos_da_Turma');
 Route::post("/turma/salvar_alunos",'TurmaController@salvar_alunos');

@@ -45,18 +45,6 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-3 left-less">
-                        <div class="card">
-                            <a href="#" id="btnRecomendacao" class="changeView" >
-                                <div class="view overlay">
-                                    <i class="fas fa-clipboard-list fa-2x"></i>
-                                </div>
-                                <div class="card-body">
-                                    Recomendação de tópicos
-                                </div>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
